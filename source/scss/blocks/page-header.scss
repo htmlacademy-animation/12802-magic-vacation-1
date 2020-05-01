@@ -237,7 +237,7 @@
   }
 
   a {
-    --active: 0;
+    --link-active: 0;
     position: relative;
     display: block;
     color: inherit;
@@ -262,8 +262,8 @@
       height: 2px;
       background-color: $c-light;
       left: 0;
-      transform: scaleX(var(--active));
-      transform-origin: calc((1 - var(--active)) * 100%) 0;
+      transform: scaleX(var(--link-active));
+      transform-origin: calc((1 - var(--link-active)) * 100%) 0;
       transition-property: transform, background-color;
       transition-duration: 0.3s;
       transition-timing-function: ease;
@@ -289,7 +289,7 @@
     &.active,
     &:hover,
     &:focus {
-      --active: 1;
+      --link-active: 1;
     }
 
     &.active {

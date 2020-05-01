@@ -1,10 +1,10 @@
 .social-block {
-  --active: 0;
+  --social-active: 0;
   position: relative;
 
   &:hover,
-  &--active {
-    --active: 1;
+  &--social-active {
+    --social-active: 1;
 
     .social-block__list {
       pointer-events: auto;
@@ -32,7 +32,7 @@
 
   &::before {
     @include center;
-    --size: calc(100% * (1 + var(--active) * 0.125));
+    --size: calc(100% * (1 + var(--social-active) * 0.125));
     content: "";
     width: var(--size);
     height: var(--size);
@@ -51,7 +51,7 @@
   }
 
   &:hover,
-  .social-block--active & {
+  .social-block--social-active & {
     color: $c-purple;
   }
 
@@ -83,7 +83,7 @@
   top: 100%;
   right: 0;
   margin-top: 1.5rem;
-  opacity: var(--active);
+  opacity: var(--social-active);
   pointer-events: none;
 
   @media (min-width: $stop-scaling) {
@@ -124,22 +124,22 @@
   }
 
   li {
-    --index: 0;
+    --social-item-index: 0;
     flex: none;
     margin-bottom: 0.5rem;
-    opacity: var(--active);
-    transform: translateY(calc(25% * (1 - var(--active))));
+    opacity: var(--social-active);
+    transform: translateY(calc(25% * (1 - var(--social-active))));
     transition-duration: 0.3s;
     transition-timing-function: ease;
     transition-property: opacity, transform;
-    transition-delay: calc(0.1s * var(--index));
+    transition-delay: calc(0.1s * var(--social-item-index));
 
     &:nth-child(2) {
-      --index: 1;
+      --social-item-index: 1;
     }
 
     &:nth-child(3) {
-      --index: 2;
+      --social-item-index: 2;
     }
 
     @media (min-width: $stop-scaling) {
