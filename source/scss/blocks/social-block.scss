@@ -3,7 +3,7 @@
   position: relative;
 
   &:hover,
-  &--social-active {
+  &--active {
     --social-active: 1;
 
     .social-block__list {
