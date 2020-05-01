@@ -1,13 +1,16 @@
 .screen {
+  --screen-active: 1;
   position: relative;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   z-index: 1;
   overflow: hidden;
+  opacity: var(--screen-active);
 
   &--hidden {
-    display: none;
+    --screen-active: 0;
+    visibility: hidden;
   }
 
   @media (max-width: $tablet) and (orientation: portrait) {
