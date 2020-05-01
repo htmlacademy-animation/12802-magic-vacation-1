@@ -244,6 +244,16 @@
     padding: 0 0.5em 0.5em;
     transition: color 0.3s ease;
 
+    &::before {
+      $offset: -1rem;
+      content: "";
+      position: absolute;
+      top: $offset;
+      bottom: $offset;
+      left: $offset;
+      right: $offset;
+    }
+
     &::after {
       content: "";
       position: absolute;
