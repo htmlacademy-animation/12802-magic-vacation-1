@@ -2,6 +2,7 @@
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
 }
 
 .form__label {
@@ -34,7 +35,8 @@
   margin-right: 3rem;
   padding: 0 5.6rem;
   height: 6rem;
-  width: calc(100% - 21rem);
+  width: calc((100% - 24rem) * var(--screen-active) + (1 - var(--screen-active)) * 0rem);
+  opacity: var(--screen-active);
   text-transform: uppercase;
   font: inherit;
   font-size: 2.4rem;
@@ -43,6 +45,7 @@
   border: 0;
   border-radius: 3rem;
   outline: none;
+  transition: width 0.4s ease;
 
   &:focus {
     border: 1px solid $c-purple;
@@ -79,7 +82,7 @@
 }
 
 .form__button {
-  flex-grow: 1;
+  flex: 0 0 21rem;
 
   @media (orientation: portrait) {
     position: relative;
