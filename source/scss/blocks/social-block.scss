@@ -13,6 +13,7 @@
 }
 
 .social-block__toggler {
+  --scale: 1;
   @include btn-reset;
   position: relative;
   display: block;
@@ -31,8 +32,8 @@
   }
 
   &::before {
+    --size: calc(100% * var(--scale));
     @include center;
-    --size: calc(100% * (1 + var(--social-active) * 0.125));
     content: "";
     width: var(--size);
     height: var(--size);
@@ -50,27 +51,48 @@
     height: 2.2rem;
   }
 
-  &:hover,
-  .social-block--social-active & {
-    color: $c-purple;
+  .social-block--active & {
+    color: $c-light;
+
+    &::before {
+      background-color: $c-purple;
+      border-color: $c-purple;
+    }
   }
 
-  &:focus {
+  &:hover {
+    --scale: 1.125;
+  }
+
+  &:hover,
+  .social-block--active &:hover {
+    color: $c-purple;
+
+    &::before {
+      background-color: $c-light;
+      border-color: $c-light;
+    }
+  }
+
+  &:focus,
+  .social-block--active &:focus {
     color: $c-purple;
     outline: none;
 
     &::before {
+      background-color: $c-light;
       border-color: $c-purple;
     }
   }
 
   &:active,
-  &:active:focus {
+  &:active:focus,
+  .social-block--active &:active,
+  .social-block--active &:active:focus {
+    --scale: 1;
     color: $c-light;
 
     &::before {
-      width: 100%;
-      height: 100%;
       background-color: $c-purple;
       border-color: $c-purple;
     }
