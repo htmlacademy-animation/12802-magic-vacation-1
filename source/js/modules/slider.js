@@ -4,6 +4,11 @@ export default () => {
   let storySlider;
   let sliderContainer = document.getElementById(`story`);
   sliderContainer.style.backgroundImage = `url("img/slide1.jpg"), linear-gradient(180deg, rgba(83, 65, 118, 0) 0%, #523E75 16.85%)`;
+  const classesConfig = {
+    slideActiveClass: `slider__item_view_active`,
+    slideNextClass: `slider__item_view_next`,
+    slidePrevClass: `slider__item_view_prev`
+  };
 
   const setSlider = function () {
     if (((window.innerWidth / window.innerHeight) < 1) || window.innerWidth < 769) {
@@ -32,7 +37,8 @@ export default () => {
           }
         },
         observer: true,
-        observeParents: true
+        observeParents: true,
+        ...classesConfig
       });
     } else {
       storySlider = new Swiper(`.js-slider`, {
@@ -66,7 +72,8 @@ export default () => {
           }
         },
         observer: true,
-        observeParents: true
+        observeParents: true,
+        ...classesConfig
       });
     }
   };

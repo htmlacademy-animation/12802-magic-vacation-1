@@ -13,6 +13,8 @@
 }
 
 .slider__item {
+  --slide-view: 0;
+  --slide-index: 0;
   display: flex;
   flex-direction: column;
   padding: 14.6rem 4rem 10rem 9.7rem;
@@ -62,6 +64,18 @@
       }
     }
   }
+
+  &_view {
+    &_active {
+      --slide-view: var(--screen-active, 1);
+      --slide-index: 1;
+    }
+
+    &_next {
+      --slide-view: var(--screen-active, 1);
+      --slide-index: 2;
+    }
+  }
 }
 
 .slider__item-title {
@@ -90,11 +104,16 @@
 }
 
 .slider__item-text {
+  --initial-delay: 300ms; /* время пролистывания слайдов Swiper по умолчанию */
   margin-top: 3.6rem;
   margin-bottom: 0;
   max-width: 34rem;
   font-size: 1.8rem;
   line-height: 2rem;
+  opacity: var(--slide-view);
+  transform: translateX(calc((1 - var(--slide-view)) * 1.5em));
+  transition: all 0.5s cubic-bezier(0.38, 0.81, 0.58, 1) calc(var(--slide-index) * 0.2s + var(--initial-delay));
+  transition-property: opacity, transform;
 
   @media (min-width: $stop-scaling) {
     margin-top: 36px;
