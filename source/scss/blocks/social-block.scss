@@ -21,7 +21,8 @@
   height: 4rem;
   color: $c-dark;
   border-radius: 50%;
-  transition: all 0.35s ease;
+  transform: scale(var(--page-loaded));
+  transition: all 0.35s ease, transform 0.6s cubic-bezier(0.82, 0.04, 0.21, 1.44);
 
   @media (max-width: $tablet) and (orientation: portrait) {
     display: none;
@@ -41,7 +42,7 @@
     background-color: $c-light;
     border: 2px solid $c-light;
     z-index: -1;
-    transition: inherit;
+    transition: all 0.35s ease;
   }
 
   svg {
@@ -85,8 +86,12 @@
     }
   }
 
+  // Firefox не поддерживает на данный момент псевдокласс `:active` при нажатии пробела
+  // https://bugzilla.mozilla.org/show_bug.cgi?id=68851
   &:active,
   &:active:focus,
+  &.active,
+  &.active:focus,
   .social-block--active &:active,
   .social-block--active &:active:focus {
     --scale: 1;
