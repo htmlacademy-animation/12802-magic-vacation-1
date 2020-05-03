@@ -3,6 +3,7 @@
   position: relative;
 
   &:hover,
+  &:focus-within,
   &--active {
     --social-active: 1;
 
@@ -85,8 +86,12 @@
     }
   }
 
+  // Firefox не поддерживает на данный момент псевдокласс `:active` при нажатии пробела
+  // https://bugzilla.mozilla.org/show_bug.cgi?id=68851
   &:active,
   &:active:focus,
+  &.active,
+  &.active:focus,
   .social-block--active &:active,
   .social-block--active &:active:focus {
     --scale: 1;
