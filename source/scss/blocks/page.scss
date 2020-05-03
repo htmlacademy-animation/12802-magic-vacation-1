@@ -1,0 +1,7 @@
+.page {
+  --page-loaded: 0;
+
+  &--loaded {
+    --page-loaded: 1;
+  }
+}
