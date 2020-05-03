@@ -1,7 +1,12 @@
 .page {
   --page-loaded: 0;
+  --page-delayed: 0;
 
   &--loaded {
     --page-loaded: 1;
+  }
+
+  &--delayed {
+    --page-delayed: 1;
   }
 }
