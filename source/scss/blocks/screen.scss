@@ -1,15 +1,21 @@
 .screen {
   --screen-active: 1;
-  position: relative;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  z-index: 1;
-  overflow: hidden;
-  opacity: var(--screen-active);
+  visibility: visible;
+  transition-property: visibility;
 
   &--hidden {
     --screen-active: 0;
+    z-index: 0;
     visibility: hidden;
   }
 
@@ -304,10 +310,30 @@
     background-size: auto calc(100vh - 13.8rem), 100% 25rem;
     background-position: top center, bottom center;
   }
+
+  &.screen--hidden {
+    transition-delay: calc(var(--page-delayed) * 0.5s);
+  }
 }
 
 .screen--prizes {
-  background-color: $c-dark;
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: translateY(calc((1 - var(--screen-active)) * 100%));
+    background-color: $c-dark;
+    transition: transform 0.5s ease;
+  }
+
+  .screen__wrapper {
+    opacity: var(--screen-active);
+    transition: opacity 0.35s ease-in 0.5s;
+  }
 }
 
 .screen--game {
