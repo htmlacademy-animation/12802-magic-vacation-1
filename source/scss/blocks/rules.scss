@@ -1,9 +1,3 @@
-@mixin isScreenActive() {
-  .screen.active & {
-    @content;
-  }
-}
-
 .rules {
   position: relative;
   flex-grow: 1;
