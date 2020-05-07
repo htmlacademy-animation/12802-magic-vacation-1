@@ -10,6 +10,7 @@ import social from './modules/social.js';
 import FullPageScroll from './modules/full-page-scroll';
 import initPage from './modules/page';
 import initRules from './modules/rules';
+import initSplitTitle from './modules/split-title';
 
 // init modules
 mobileHeight();
@@ -22,6 +23,7 @@ form();
 social();
 initPage();
 initRules();
+initSplitTitle();
 
 const fullPageScroll = new FullPageScroll();
 fullPageScroll.init();
