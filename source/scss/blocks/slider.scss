@@ -17,6 +17,7 @@
   --slide-index: 0;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
   padding: 14.6rem 4rem 10rem 9.7rem;
   height: auto;
 
@@ -174,6 +175,28 @@
   height: 4rem;
   color: $c-dark;
 
+  &--prev {
+    --move-dir: -1;
+  }
+  &--next {
+    --move-dir: 1;
+  }
+
+  @include isScreenActive() {
+    animation: showSliderControl 0.6s cubic-bezier(0.38, 0.15, 0.17, 1) both;
+
+    @keyframes showSliderControl {
+      from {
+        transform: translateX(calc(4.5rem * var(--move-dir)))
+                   rotate(calc(0.5turn * var(--move-dir)))
+      }
+
+      to {
+        transform: none;
+      }
+    }
+  }
+
   @media (min-width: $stop-scaling) {
     width: 40px;
     height: 40px;
@@ -291,6 +314,23 @@
       width: 0.4rem;
       height: 0.4rem;
       background-color: $c-light;
+    }
+  }
+}
+
+.slider__pagination,
+.slider__controls {
+  @include isScreenActive() {
+    animation: showControls 0.6s ease both;
+
+    @keyframes showControls {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
     }
   }
 }

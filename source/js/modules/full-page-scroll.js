@@ -16,7 +16,10 @@ export default class FullPageScroll {
     document.addEventListener(`wheel`, throttle(this.onScrollHandler, this.THROTTLE_TIMEOUT, {trailing: true}));
     window.addEventListener(`popstate`, this.onUrlHashChengedHandler);
 
-    this.onUrlHashChanged();
+    this.setActiveScreen();
+    requestAnimationFrame(() => {
+      this.changePageDisplay();
+    });
   }
 
   onScroll(evt) {
@@ -27,9 +30,13 @@ export default class FullPageScroll {
     }
   }
 
-  onUrlHashChanged() {
+  setActiveScreen() {
     const newIndex = Array.from(this.screenElements).findIndex((screen) => location.hash.slice(1) === screen.id);
     this.activeScreen = (newIndex < 0) ? 0 : newIndex;
+  }
+
+  onUrlHashChanged() {
+    this.setActiveScreen();
     this.changePageDisplay();
   }
 
