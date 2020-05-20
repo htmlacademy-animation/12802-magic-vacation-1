@@ -105,7 +105,12 @@
 }
 
 .prizes__item {
+  --prize-init: 0;
   margin-left: 7.5rem;
+
+  &_is-inited {
+    --prize-init: 1;
+  }
 
   @media (min-width: $stop-scaling) {
     margin-left: 75px;
@@ -127,6 +132,13 @@
   }
 
   &--journeys {
+    transform: translateX(calc((1 - var(--prize-init)) * 100%));
+    transition-property: transform;
+    transition-duration: .5s;
+    transition-timing-function: ease-in-out;
+    transition-delay: calc(var(--prize-item-duration) - 0.5s);
+
+
     .prizes__icon {
       position: relative;
       left: -5.9rem;
@@ -265,6 +277,19 @@
     font-weight: 400;
     font-size: 12rem;
     line-height: 0.55;
+    animation-name: showPrizeCounter;
+    animation-duration: 0.35s;
+    animation-timing-function: ease;
+
+    @keyframes showPrizeCounter {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
 
     @media (min-width: $stop-scaling) {
       font-size: 120px;
@@ -289,6 +314,21 @@
     align-items: flex-end;
     margin-left: 1.4rem;
     max-width: 14rem;
+    animation-name: showPrizeDescription;
+    animation-duration: 0.35s;
+    animation-timing-function: ease;
+
+    @keyframes showPrizeDescription {
+      from {
+        opacity: 0;
+        transform: translateX(1rem);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
 
     @media (min-width: $stop-scaling) {
       margin-left: 14px;
@@ -327,6 +367,22 @@
     @media (max-width: $mobile) and (orientation: landscape) {
       width: 0.5rem;
       height: 0.5rem;
+    }
+  }
+
+  .prizes__item:not(.prizes__item_is-inited) & {
+    span,
+    b {
+      animation-play-state: paused;
+    }
+  }
+
+  .prizes__item_is-inited & {
+    span,
+    b {
+      animation-fill-mode: both;
+      animation-play-state: running;
+      animation-delay: calc(var(--prize-item-duration) - 1s);
     }
   }
 }
