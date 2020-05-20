@@ -11,6 +11,7 @@ import FullPageScroll from './modules/full-page-scroll';
 import initPage from './modules/page';
 import initRules from './modules/rules';
 import initSplitTitle from './modules/split-title';
+import initPrizes from './modules/prizes';
 
 // init modules
 mobileHeight();
@@ -24,6 +25,7 @@ social();
 initPage();
 initRules();
 initSplitTitle();
+initPrizes();
 
 const fullPageScroll = new FullPageScroll();
 fullPageScroll.init();
