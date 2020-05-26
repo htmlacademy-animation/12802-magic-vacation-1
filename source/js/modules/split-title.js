@@ -26,14 +26,7 @@ function initSplitTitle() {
 
             case SplitText.NODES.LETTER: {
               const globalIndex = data.letterTotalIndex;
-              const indexMap = {
-                0: 0,
-                1: 2,
-                2: 1,
-                3: 3,
-                4: 5,
-                5: 4,
-              };
+              const indexMap = [0, 2, 1, 3, 5, 4];
               const localIndex = indexMap[globalIndex % 5];
               element.classList.add(`split-text__letter`);
               element.style.setProperty(`--letter-index`, localIndex);
