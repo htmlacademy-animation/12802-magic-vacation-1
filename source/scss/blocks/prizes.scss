@@ -117,6 +117,7 @@
   }
 
   @media (max-width: $tablet) and (orientation: portrait) {
+    --prize-item-duration: 0s !important;
     display: flex;
     align-items: flex-end;
     margin-left: 0;
@@ -188,6 +189,7 @@
 
       @media (max-width: $tablet) and (orientation: portrait) {
         margin-right: 1.3rem;
+        margin-left: 0;
         width: 10.211rem;
       }
 
