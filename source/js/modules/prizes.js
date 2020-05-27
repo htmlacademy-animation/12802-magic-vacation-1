@@ -15,7 +15,7 @@ function createFragment(node) {
 
 function waitForItem(item) {
   const imageTemplate = item.querySelector(imageTemplateSelector);
-  const imageDuration = (parseFloat(item.style.getPropertyValue(`--prize-item-duration`)) || 0) * 1000;
+  const imageDuration = (parseFloat(getComputedStyle(item).getPropertyValue(`--prize-item-duration`)) || 0) * 1000;
   const imageFragment = createFragment(imageTemplate);
 
   item.querySelector(placeSelector).appendChild(imageFragment);

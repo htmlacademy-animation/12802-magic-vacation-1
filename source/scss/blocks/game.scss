@@ -109,12 +109,13 @@
   flex-direction: column;
 }
 
+/* TODO: удалить или скрыть */
 .game__buttons {
   position: fixed;
   left: 0;
   z-index: 100;
   opacity: 0.5;
-  display: none;
+  /* display: none; */
 }
 
 .game__button {
