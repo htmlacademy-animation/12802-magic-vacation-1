@@ -56,15 +56,15 @@
   }
 }
 
-/* [1] - число 0.99 и will-change для трансформации нужен для Blink/Webkit для устранения "подергиваний" в конце анимации */
 .result__title {
+  /* число 0.99 и will-change для трансформации нужен для Blink/Webkit для устранения "подергиваний" в конце анимации */
   margin: 0 auto 2rem;
   color: $c-light;
-  will-change: transform; /* [1] */
+  will-change: transform;
 
   .result--trip &,
   .result--prize & {
-    transform: scale(calc(var(--on) * 0.99 + (1 - var(--on)) * 1.15)); /* [1] */
+    transform: scale(calc(var(--on) * 0.99 + (1 - var(--on)) * 1.15));
     transition: transform 767ms cubic-bezier(0.21, 0, 0, 1);
   }
 
@@ -86,10 +86,10 @@
     stroke-width: 0.2rem;
     stroke-linejoin: round;
 
-    /* [2] - дополнительное умножение на 1px для Firefox, так как он пока не может анимировать stroke без единиц измерения в calc */
     path {
-      stroke-dashoffset: calc(var(--on) * var(--segment) * 1px); /* [2] */
-      stroke-dasharray: calc(var(--on) * var(--segment) * 1px) calc((1 - var(--on)) * var(--segment) * 1px); /* [2] */
+      /* дополнительное умножение на 1px для Firefox, так как он пока не может анимировать stroke без единиц измерения в calc */
+      stroke-dashoffset: calc(var(--on) * var(--segment) * 1px);
+      stroke-dasharray: calc(var(--on) * var(--segment) * 1px) calc((1 - var(--on)) * var(--segment) * 1px);
       transition: all 432ms cubic-bezier(0.21, 0, 0.8, 1);
     }
 
