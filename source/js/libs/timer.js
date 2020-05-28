@@ -1,43 +1,41 @@
-// Используется EventEmitter из node.js, так как он является независимым js-модулем
-import {EventEmitter} from 'events';
-
-export class Timer extends EventEmitter {
+export class Timer {
   constructor(options) {
-    super();
+    this.state = {};
     this.fps = options.fps;
+    this.render = options.render;
   }
 
   get fpsInterval() {
     return 1000 / this.fps;
   }
 
-  run() {
-    const self = this;
-    let startTime = performance.now();
-    let elapsed;
+  _tick(time) {
+    const state = this.state;
+    const elapsed = time - state.lastTime;
+    if (elapsed >= this.fpsInterval) {
+      this.render();
+      state.lastTime = time;
+    }
+  }
 
-    self.emit(`start`, startTime);
-
-    self.requestId = requestAnimationFrame(function tick(time) {
-      self.requestId = requestAnimationFrame(tick);
-
-      elapsed = time - startTime;
-
-      if (elapsed >= self.fpsInterval) {
-        startTime = time - (elapsed % self.fpsInterval);
-        self.emit(`update`, elapsed);
-      }
+  _run() {
+    this.state.requestId = requestAnimationFrame((time) => {
+      this._run();
+      this._tick(time);
     });
+  }
 
-    return self;
+  start() {
+    const startTime = performance.now();
+    this.state.lastTime = startTime;
+    this._run();
+    return this;
   }
 
   stop() {
-    if (this.requestId) {
-      cancelAnimationFrame(this.requestId);
-      this.emit(`stop`, performance.now());
+    if (this.state.requestId) {
+      cancelAnimationFrame(this.state.requestId);
     }
-
     return this;
   }
 }

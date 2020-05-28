@@ -4,6 +4,7 @@ import {formatTime, numberToPadString} from '../libs/format-time';
 export default function initGame() {
   const counterElement = document.querySelector(`.game__counter`);
   const GAME_DURATION = 1000 * 60 * 5;
+  let gameTime;
 
   if (!counterElement) {
     return;
@@ -11,34 +12,33 @@ export default function initGame() {
 
   function renderCounter(time) {
     counterElement.textContent = formatTime(time / 1000, (timeData) => {
-      return `${timeData.min}:${numberToPadString(timeData.sec)}`;
+      return `${numberToPadString(timeData.min)}:${numberToPadString(timeData.sec)}`;
     });
   }
 
   const timer = new Timer({
-    fps: 1
+    fps: 1,
+    render: () => {
+      gameTime -= 1000;
+
+      if (gameTime <= 0) {
+        timer.stop();
+        renderCounter(0);
+      } else {
+        renderCounter(gameTime);
+      }
+    }
   });
 
   document.body.addEventListener(`screenChanged`, (event) => {
     const {detail: {screenName}} = event;
 
     timer.stop();
-    let gameTime = GAME_DURATION;
-    renderCounter(gameTime);
 
     if (screenName === `game`) {
-      timer
-        .on(`update`, () => {
-          gameTime -= 1000;
-
-          if (gameTime <= 0) {
-            timer.stop();
-            renderCounter(0);
-          } else {
-            renderCounter(gameTime);
-          }
-        })
-        .run();
+      gameTime = GAME_DURATION;
+      renderCounter(gameTime);
+      timer.start();
     } else {
       timer.stop();
     }
