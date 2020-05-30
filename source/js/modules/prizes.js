@@ -1,6 +1,7 @@
 import {delay} from '../libs/delay';
 import {promiseSeries} from '../libs/promise-series';
 import {loadImage} from '../libs/load-image';
+import {Timer} from '../libs/timer';
 
 const sectionSelector = `.screen--prizes`;
 const itemSelector = `.prizes__item`;
@@ -8,9 +9,29 @@ const imageSelector = `img`;
 const imageTemplateSelector = `template`;
 const placeSelector = `.prizes__icon`;
 const itemInitedClass = `prizes__item_is-inited`;
+const counterSelector = `.prizes__desc b`;
 
 function createFragment(node) {
   return document.importNode(node.content, true);
+}
+
+function animatePrizeCounter({values, element}) {
+  return new Promise((resolve) => {
+    const timer = new Timer({
+      fps: 12,
+      render: () => {
+        const value = values.shift();
+        if (typeof value !== `number`) {
+          timer.stop();
+          resolve();
+          return;
+        }
+        element.dataset.value = value;
+      }
+    });
+
+    timer.start();
+  });
 }
 
 function waitForItem(item) {
@@ -22,7 +43,17 @@ function waitForItem(item) {
 
   return loadImage(item.querySelector(imageSelector))
     .then(() => item.classList.add(itemInitedClass))
-    .then(() => delay(imageDuration));
+    .then(() => Promise.all([
+      delay(imageDuration),
+      delay(imageDuration - 1000)
+        .then(() => {
+          const counterElement = item.querySelector(counterSelector);
+          return animatePrizeCounter({
+            values: counterElement.dataset.values.split(`,`).map((v) => parseFloat(v)),
+            element: counterElement
+          });
+        })
+    ]));
 }
 
 export default function initPrizes() {
