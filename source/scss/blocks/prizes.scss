@@ -279,6 +279,8 @@
   }
 
   b {
+    position: relative;
+    color: transparent;
     font-family: $font-alt;
     font-weight: 400;
     font-size: 12rem;
@@ -286,6 +288,14 @@
     animation-name: showPrizeCounter;
     animation-duration: 0.35s;
     animation-timing-function: ease;
+
+    &::after {
+      content: attr(data-value);
+      position: absolute;
+      right: 0;
+      top: 0;
+      color: $c-light;;
+    }
 
     @keyframes showPrizeCounter {
       from {
